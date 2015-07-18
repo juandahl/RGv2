@@ -44,6 +44,7 @@ public class GameBoard extends Window implements GeneralGameBoard {
 	private ListBox lstPlayers;
 	private TextBox txtMessage;
 	private Button btnSend;
+	private Button btnAddArg;
 	private ScrollPanel scrollPanelTree;
 	private ScrollPanel scrollPanelList;
 	
@@ -181,7 +182,7 @@ public class GameBoard extends Window implements GeneralGameBoard {
 		
 		btnSend = new Button(constants.sendButton());
 		btnSend.setStyleName("sendButton");
-		flexTable.setWidget(0, 1, btnSend);
+		flexTable.setWidget(0, 2, btnSend);
 		btnSend.setWidth("78px");
 		flexTable.getFlexCellFormatter().setColSpan(0, 0, 2);
 		btnSend.addClickHandler(new ClickHandler() {
@@ -190,8 +191,22 @@ public class GameBoard extends Window implements GeneralGameBoard {
 				sendMessage();
 			}
 		});
-		btnSend.setTabIndex(1);
+		btnSend.setTabIndex(2);
 		players =  new Vector<GamePlayer>();
+
+		btnAddArg = new Button(constants.addArgButton());
+		btnAddArg.setStyleName("addArgButton");
+		flexTable.setWidget(0,1,btnAddArg);
+		btnSend.setWidth("150px");
+		flexTable.getFlexCellFormatter().setColSpan(0,0,4);
+		btnAddArg.addClickHandler(new ClickHandler(){
+			@Override
+			public void onClick(ClickEvent event) {
+				addArgument();
+			}
+		});
+		btnAddArg.setTabIndex(1);
+
 		
 		wasEliminated = false;
 		isGameStarted = false;
@@ -585,6 +600,8 @@ public class GameBoard extends Window implements GeneralGameBoard {
 		agent.hide();
 	}
 
-
+	private void addArgument(){
+		
+	}
 
 }

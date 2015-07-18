@@ -160,6 +160,9 @@ public interface RolegameConstants extends Constants {
 	// RulesDialog
 	@DefaultStringValue("rulesTitle")
 	String rulesTitle();
+	@DefaultStringValue("addArgButton")
+	String addArgButton();
+
 }
 
 /*public interface RolegameConstants extends Constants {
