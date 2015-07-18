@@ -164,11 +164,11 @@ public class GameBoard extends Window implements GeneralGameBoard {
 		
 		FlexTable flexTable = new FlexTable();
 		addItem(flexTable);
-		flexTable.setSize("777px", "29px");
+		flexTable.setSize("785px", "29px");
 		
 		txtMessage = new TextBox();
 		flexTable.setWidget(0, 0, txtMessage);
-		txtMessage.setSize("678px", "25px");
+		txtMessage.setSize("560px", "25px");
 		txtMessage.setFocus(true);
 		txtMessage.addKeyDownHandler(new KeyDownHandler() {
 			
@@ -197,8 +197,8 @@ public class GameBoard extends Window implements GeneralGameBoard {
 		btnAddArg = new Button(constants.addArgButton());
 		btnAddArg.setStyleName("addArgButton");
 		flexTable.setWidget(0,1,btnAddArg);
-		btnSend.setWidth("150px");
-		flexTable.getFlexCellFormatter().setColSpan(0,0,4);
+		btnAddArg.setSize("130px","25px");
+		flexTable.getFlexCellFormatter().setColSpan(0,0,2);
 		btnAddArg.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {
