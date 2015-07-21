@@ -168,6 +168,11 @@ public interface RolegameConstants extends Constants {
 	String claimOpt2();
 	@DefaultStringValue("argumentTitle")
 	String argumentTitle();
+	@DefaultStringValue("addMsg")
+	String addMsg();
+	@DefaultStringValue("plus")
+	String plus();
+	
 }
 
 /*public interface RolegameConstants extends Constants {

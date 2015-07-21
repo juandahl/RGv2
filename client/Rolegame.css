@@ -1,0 +1,138 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  color: #777777;
+  margin: 40px 0px 70px;
+  text-align: center;
+}
+
+body {
+  color: black;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  background: black;
+  direction: ltr;
+}
+
+/** Form Styles */
+.sendButton {
+  display: block;
+  font-size: 12pt;
+}
+
+.window-border {
+	border-width: 10px;
+	border-style: solid;
+	border-color: navy;
+}
+
+.label-style {
+	font-weight: bolder;
+}
+
+.list-style {
+	font-size: small; 
+}
+
+/** Most GWT widgets already have a style name defined */
+.gwt-DialogBox {
+  width: 400px;
+}
+
+.dialogVPanel {
+  margin: 5px;
+}
+
+.serverResponseLabelError {
+  color: red;
+}
+
+/** Set ids using widget.getElement().setId("idOfElement") */
+#closeButton {
+  margin: 15px 6px 6px;
+}
+
+/** Tree - messages styles*/
+
+.error-msg {
+	color: red;
+}
+
+.master-msg {
+	color: green;
+	font-style: italic;
+}
+
+.player-msg {
+	color: DarkSlateGray;
+}
+
+.inform-msg {
+	color: gray;
+}
+
+/** List players styles */
+.player-eliminated {
+	color: Lightgray;
+}
+
+.player-self {
+	color: CornflowerBlue;
+}
+
+.player-ally {
+	color: DarkGreen;
+}
+
+/** Lock Unlock styles */
+.tree-lock {
+	background-color: black;
+	padding: 0px;
+}
+
+.tree-unlock {
+	background-color: white;
+	padding: 0px;
+}
+
+/** Windows styles */
+.bad-window {
+	background-color: DarkRed;
+	border-color: DarkRed;
+	
+}
+
+.good-window {
+	background-color: LightSkyBlue;
+}
+
+.doc-window {
+	background-color: ForestGreen;
+}
+
+.people-window {
+	background-color: Orange;
+}
+
+.window-header-text {
+	color: White;
+}
+
+.warrantyTxtArea{
+	resize:none;
+}
+
+.argLabel{
+	margin-left: 5px;
+}
+
+.addLabel{
+	margin-left: 5px;
+	margin-top: 4px;
+}
+

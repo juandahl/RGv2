@@ -119,5 +119,11 @@ public interface RolegameMessages extends Messages {
 	
 	@DefaultMessage("claimText")
 	String claimText();
+	@DefaultMessage("causeText")
+	String causeText();
+	@DefaultMessage("warrantyText")
+	String warrantyText();
+	@DefaultMessage("extraCause")
+	String extraCause();
 
 }
