@@ -162,7 +162,12 @@ public interface RolegameConstants extends Constants {
 	String rulesTitle();
 	@DefaultStringValue("addArgButton")
 	String addArgButton();
-
+	@DefaultStringValue("claimOpt1")
+	String claimOpt1();
+	@DefaultStringValue("claimOpt2")
+	String claimOpt2();
+	@DefaultStringValue("argumentTitle")
+	String argumentTitle();
 }
 
 /*public interface RolegameConstants extends Constants {
