@@ -1,0 +1,35 @@
+import edu.isistan.rolegame.shared.Participation;
+
+
+public abstract class Argumento {
+	private String tipo;
+	private Participation personaje;
+
+	
+	public Argumento(String tipo, Participation pers) {
+		this.tipo=tipo;
+		this.personaje=pers;
+	}
+
+	public String getNombre() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Participation getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Participation personaje) {
+		this.personaje = personaje;
+	}
+	
+	public String toString() {
+		return personaje.getPlayer().getName() + converString();
+	}
+	
+	protected abstract String converString();
+}
