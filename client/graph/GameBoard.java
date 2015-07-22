@@ -601,7 +601,8 @@ public class GameBoard extends Window implements GeneralGameBoard {
 	}
 
 	private void addArgument(){
-		
+		ArgumentDialog ad = new ArgumentDialog(gameman,players);
+		ad.show();
 	}
 
 }
