@@ -1,0 +1,25 @@
+import edu.isistan.rolegame.shared.Participation;
+
+public class ArgumentoSimple extends Argumento{
+	
+	private String descripcion;
+	// participante que realiza el argumento
+
+	public ArgumentoSimple(String descripcion, String nombre, Participation pers) {
+		super(nombre, pers);
+		this.descripcion=descripcion;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	
+	protected String converString(){
+		return descripcion;
+	}
+	
+}
