@@ -1,0 +1,49 @@
+package edu.isistan.rolegame.shared;
+
+import java.io.Serializable;
+
+public class ArgumentoBD implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
+	private String descripcion;
+	private GamePlayer autor;
+	
+	public ArgumentoBD() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public GamePlayer getAutor() {
+		return autor;
+	}
+
+	public void setAutor(GamePlayer autor) {
+		this.autor = autor;
+	}
+	
+	public ArgumentoBD(String descripcion, GamePlayer autor){
+		this.descripcion=descripcion;
+		this.autor=autor;
+	}
+
+	
+}
