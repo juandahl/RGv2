@@ -3,12 +3,13 @@ package edu.isistan.rolegame.shared.comm;
 import edu.isistan.rolegame.client.ClientGameManager;
 import edu.isistan.rolegame.shared.GamePlayer;
 
-public abstract class ArgumentElemMessage extends GameMessage /*implements Serializable*/{
+public abstract class ArgumentMessage extends GameMessage /*implements Serializable*/{
 	//private String tipo;
 	protected GamePlayer player;
+	protected Long id;
 	private static final long serialVersionUID = 10L;
 	
-	public ArgumentElemMessage(GamePlayer player) {
+	public ArgumentMessage(GamePlayer player) {
 		this.player=player;
 	}
 

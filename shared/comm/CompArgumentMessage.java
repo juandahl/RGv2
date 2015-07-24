@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Vector;
 import edu.isistan.rolegame.shared.GamePlayer;
 
-public class CompArgumentMessage extends ArgumentElemMessage implements Serializable{
-	private Vector<ArgumentElemMessage> components;
+public class CompArgumentMessage extends ArgumentMessage implements Serializable{
+	private Vector<ArgumentMessage> components;
 	private static final long serialVersionUID = -1045198721445121549L;
 
 	
@@ -15,13 +15,13 @@ public class CompArgumentMessage extends ArgumentElemMessage implements Serializ
 	}
 
 	
-	public void addElement(ArgumentElemMessage element){
+	public void addElement(ArgumentMessage element){
 		components.add(element);
 	}
 	
 	public String toString() {
 		String arg = new String();
-		for (ArgumentElemMessage a: components)
+		for (ArgumentMessage a: components)
 			arg += a.toString();
 		return arg;
 	}
