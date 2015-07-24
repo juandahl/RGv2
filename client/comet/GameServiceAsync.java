@@ -37,5 +37,5 @@ public interface GameServiceAsync {
 
 	public void sendInvite(Game game, GamePlayer player, AsyncCallback<Void> asyncCallback);
 	
-	public void sendArgument(Game game, ArgumentMessage message, AsyncCallback<Void> callback);
+	public void send(Game game, ArgumentMessage message, AsyncCallback<Void> callback);
 }	

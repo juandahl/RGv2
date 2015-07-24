@@ -116,7 +116,7 @@ public interface GameService extends RemoteService {
 	 */
 	public void sendInvite(Game game, GamePlayer player) throws ChatException;
 	
-	public void sendArgument(Game game, ArgumentMessage messsage) throws ChatException;
+	public void send(Game game, ArgumentMessage messsage) throws ChatException;
 	/**
 	 * Envía un argumento, actualmente de tipo CompArgumentMessage. Es el argumento completo de una persona.
 	 */
