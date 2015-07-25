@@ -14,6 +14,7 @@ import edu.isistan.rolegame.shared.ParticipationId;
 import edu.isistan.rolegame.shared.Round;
 import edu.isistan.rolegame.shared.Vote;
 import edu.isistan.rolegame.shared.comm.ArgumentMessage;
+import edu.isistan.rolegame.shared.comm.SimpleArgumentMessage;
 import edu.isistan.rolegame.shared.comm.UserMessage;
 
 public class MyGameDAO implements GameDAO {
@@ -211,14 +212,15 @@ public class MyGameDAO implements GameDAO {
 	        Session session = sessionFactory.openSession();
 	        Transaction tx = session.beginTransaction();
 
-	        // message ya tiene seteado texto y sender
+	        //convierto a simple argument que es guardado en la base
+	        SimpleArgumentMessage argument = new SimpleArgumentMessage(message.toString(),message.getPlayer());
 	        // round.addUserMessage(message);
-	        // Setea en el message el game, round y date
-	        message.setGame(game);
-	        message.setRound(round);
-	        message.setDate(new Date());
+	        // Setea en el message el game, round y dato
+	        argument.setGame(game);
+	        argument.setRound(round);
+	        argument.setDate(new Date());
 	        
-	        session.save(message);
+	        session.save(argument);
 	        
 	        tx.commit();
 	        session.close();

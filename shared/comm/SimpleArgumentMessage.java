@@ -10,8 +10,11 @@ public class SimpleArgumentMessage extends ArgumentMessage implements
 	private String message;
 	private static final long serialVersionUID = -1045198721445121548L;
 
-	// participante que realiza el argumento
-
+	public SimpleArgumentMessage(){
+		super();
+		message = null;
+	}
+	
 	public SimpleArgumentMessage(String message, GamePlayer player) {
 		super(player);
 		this.message = message;

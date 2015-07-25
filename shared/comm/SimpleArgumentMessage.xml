@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13/07/2011 13:42:13 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="edu.isistan.rolegame.shared.SimpleArgumentMessage" table="argumento">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        
+        <property name="message" type="java.lang.String">
+        	<column name="descripcion" length="8000" />
+        </property>
+        
+        <many-to-one name="player" class="edu.isistan.rolegame.shared.GamePlayer" update="false" insert="false" fetch="select">
+            <column name="autor" length="25" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

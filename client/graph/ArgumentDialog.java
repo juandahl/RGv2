@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.Widget;
 import com.smartgwt.client.widgets.Dialog;
 import com.smartgwt.client.widgets.events.CloseClickHandler;
 import com.smartgwt.client.widgets.events.CloseClientEvent;
@@ -29,8 +30,7 @@ public class ArgumentDialog extends Dialog {
 	private ListBox player_box; // list of players to vote or acuse
 	private Label text; // text for the argument
 	private VLayout dataLay;
-	private int datos;
-	private boolean first_data;
+	private Vector<Widget> dataCol; //vector para poder luego mas facil pasar los datos a String
 
 	private RolegameMessages messages = GWT.create(RolegameMessages.class);
 	private RolegameConstants constants = GWT.create(RolegameConstants.class);
@@ -43,15 +43,13 @@ public class ArgumentDialog extends Dialog {
 		setSize("980px", "300px");
 		addCloseClickHandler(new CloseClickHandler() {
 			public void onCloseClick(CloseClientEvent event) {
-				// CODIGO PARA PREGUNTAR AL USUARIO SI EFECTIVAMENTE QUIERE
-				// CERRAR
+				sendArgument();
 				destroy();
 			}
 		});
 		HLayout content = new HLayout();
 		content.setWidth("910px");
-		datos = 0;
-		first_data = true;
+		dataCol = new Vector<Widget>();
 
 		// set claim section of the ui
 		HLayout claim = new HLayout();
@@ -81,8 +79,6 @@ public class ArgumentDialog extends Dialog {
 		dataLay = new VLayout(); // data-warranty layout for multiple items
 		dataLay.setHeight("100px");
 		dataLay.addMember(getDataInterface());
-		first_data = false;
-		datos++;
 
 		HLayout addLay = new HLayout();
 		PushButton addButton = new PushButton();
@@ -92,8 +88,7 @@ public class ArgumentDialog extends Dialog {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				dataLay.addMember(getDataInterface(), datos);
-				datos++;
+				dataLay.addMember(getDataInterface(), dataCol.size()/2);
 			}
 		});
 		addLay.addMember(addButton);
@@ -127,7 +122,7 @@ public class ArgumentDialog extends Dialog {
 		ui.setMargin(7);
 
 		Label causeTxt = new Label();
-		if (first_data)
+		if (dataCol.size()==0)
 			causeTxt.setText(messages.causeText());
 		else
 			causeTxt.setText(messages.extraCause());
@@ -140,6 +135,7 @@ public class ArgumentDialog extends Dialog {
 		data_box.setStyleName("dataBox");
 		data_box.setWidth("250px");
 		ui.addMember(data_box);
+		dataCol.add(data_box);
 
 		Label henceTxt = new Label();
 		henceTxt.setText(messages.warrantyText());
@@ -152,6 +148,7 @@ public class ArgumentDialog extends Dialog {
 		warranty.setHeight("40px");
 		warranty.setStyleName("warrantyTxtArea");
 		ui.addMember(warranty);
+		dataCol.add(warranty);
 
 		return ui;
 	}
@@ -160,6 +157,35 @@ public class ArgumentDialog extends Dialog {
 		for (GamePlayer p: players) {
 			player_box.addItem(p.getName());
 		}
+	}
+	
+	private Vector<String> getArgumentTxt(){
+		Vector<String> argument = new Vector<String>();
+		//add claim
+		argument.add(yn_box.getValue(yn_box.getSelectedIndex()));
+		argument.add(player_box.getValue(player_box.getSelectedIndex()));
+		
+		for (int i=0;i<dataCol.size();i++){
+			Widget w = dataCol.elementAt(i);
+			if (w instanceof ListBox){ //add data
+				ListBox lb = (ListBox)w;
+				argument.add(lb.getValue(lb.getSelectedIndex()));
+			}
+			else{ //add warranty
+				if (w instanceof TextArea){
+					TextArea ta = (TextArea)w;
+					argument.add(ta.getValue());
+				}
+			}
+			
+		}
+		return argument;
+	}
+	
+	public boolean sendArgument(){
+		Vector<String> argument = getArgumentTxt();
+		gameman.sendArgument(argument);
+		return true;
 	}
 
 }
