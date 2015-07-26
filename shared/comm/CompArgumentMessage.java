@@ -37,22 +37,26 @@ public class CompArgumentMessage extends ArgumentMessage implements
 			arg+=" "+messages.claimText()+" "+components.get(1); //player selected
 			
 			//data
-			arg+=" "+messages.causeText()+" "+components.get(2); //previous message selected
-			if (components.size()>3){ //there is warranty and probably more data
+			arg+=" "+messages.causeText()+" '"+components.get(2)+"'"; //previous message selected
+			if (components.size()>3 && !components.get(3).toString().isEmpty()) //there is a warranty
 				arg+=" "+messages.warrantyText()+" "+components.get(3);
-				addExtraData(arg);
-			}
-			
+			System.out.println("Previously: "+arg);
+			arg+=extraDataText(); //in case there is more data
 		}
 		return arg;
 	}
 	
-	private void addExtraData(String result){
+	private String extraDataText(){
+		String extraTxt = new String();
+		System.out.println("Tamaño: "+components.size());
 		for (int i=4; i<components.size();i++){ //extra data
 			if ((i%2)==1 && !components.get(i).toString().isEmpty()) //there is warranty for the data
-				result+=" "+messages.warrantyText()+" "+components.get(i);
+				extraTxt+=" "+messages.warrantyText()+" "+components.get(i);
 			else
-				result+=" "+messages.extraCause()+" "+components.get(i);
+				if (!components.get(i).toString().isEmpty())
+					extraTxt+=" "+messages.extraCause()+" '"+components.get(i)+"'";
 		}
+		System.out.println(extraTxt);
+		return extraTxt;
 	}
 }
