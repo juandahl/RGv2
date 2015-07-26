@@ -253,7 +253,6 @@ public class GameBoard extends Window implements GeneralGameBoard {
 			sendername = msg.getSender().getName() + ": ";
 		
 		
-		
 		TreeItem node = new TreeItem(sendername + msg.getText());
 		node.addStyleName(styleName);
 		node.setWidth("600px");

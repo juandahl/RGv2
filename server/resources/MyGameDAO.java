@@ -219,7 +219,6 @@ public class MyGameDAO implements GameDAO {
 	        argument.setGame(game);
 	        argument.setRound(round);
 	        argument.setDate(new Date());
-	        
 	        session.save(argument);
 	        
 	        tx.commit();

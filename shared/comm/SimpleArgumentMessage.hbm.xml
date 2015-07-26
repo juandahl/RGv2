@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 13/07/2011 13:42:13 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="edu.isistan.rolegame.shared.SimpleArgumentMessage" table="argumento">
+    <class name="edu.isistan.rolegame.shared.comm.SimpleArgumentMessage" table="argumento">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />

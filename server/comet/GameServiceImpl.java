@@ -432,14 +432,15 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			throw new ChatException(messages.errorNoSesion(""));
 		}
 		
-		/* Elimina el código HTML del mensaje, evita inyección de HTML
-		message = Jsoup.clean(message, whitelist);*/
+		//Elimina el código HTML del mensaje, evita inyección de HTML
+		//message = Jsoup.clean(message, whitelist);
 		
 		// Obtiene el administrador de la partida.
-		ServerGameManager serverman = gamemans.get(game.getIdGame());
+			ServerGameManager serverman = gamemans.get(game.getIdGame());
 		
 		// Determina, según el estado del juego, a que set de Players enviar el argumento creado
 		Vector<GamePlayer> enabledplayers = serverman.getEnabledPlayers();
+		
 		
 		for(Enumeration<GamePlayer> players = enabledplayers.elements(); players.hasMoreElements();) {
 			GamePlayer p = players.nextElement();
@@ -447,7 +448,7 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 			enqueueMessage(cometSession, message);
 			//if (cometSession != null && cometSession.isValid())
 			//	cometSession.enqueue(userMessage);
-		}
+		}		
 		
 		// Persiste el mensaje
 		serverman.persistArgument(message);

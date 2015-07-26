@@ -19,6 +19,7 @@ import edu.isistan.rolegame.shared.GamePlayer;
 import edu.isistan.rolegame.shared.comm.ArgumentMessage;
 import edu.isistan.rolegame.shared.comm.GameMessage;
 import edu.isistan.rolegame.shared.comm.PlayerInformMessage;
+import edu.isistan.rolegame.shared.comm.SimpleArgumentMessage;
 import edu.isistan.rolegame.shared.comm.StatusMessage;
 
 public class Comet {
@@ -127,13 +128,16 @@ public class Comet {
 	}
 	
 	public void sendArgument (Game game, ArgumentMessage message){
-		gameService.send(game, message, new AsyncCallback<Void>() {
+		SimpleArgumentMessage m = new SimpleArgumentMessage(message.toString(),message.getPlayer());
+		gameService.send(game, m, new AsyncCallback<Void>() {
 			@Override
 			public void onSuccess(Void result){
+				System.out.println("success");
 			}
 			
 			@Override
 			public void onFailure(Throwable caught){
+				System.out.println("failure");
 			}
 		});
 	}

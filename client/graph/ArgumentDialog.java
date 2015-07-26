@@ -43,7 +43,6 @@ public class ArgumentDialog extends Dialog {
 		setSize("980px", "300px");
 		addCloseClickHandler(new CloseClickHandler() {
 			public void onCloseClick(CloseClientEvent event) {
-				sendArgument();
 				destroy();
 			}
 		});
@@ -106,6 +105,7 @@ public class ArgumentDialog extends Dialog {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				sendArgument();
 				destroy();
 			}
 		});

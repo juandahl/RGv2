@@ -1,5 +1,6 @@
 package edu.isistan.rolegame.shared.comm;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import edu.isistan.rolegame.client.ClientGameManager;
@@ -7,17 +8,14 @@ import edu.isistan.rolegame.shared.Game;
 import edu.isistan.rolegame.shared.GamePlayer;
 import edu.isistan.rolegame.shared.Round;
 
-public abstract class ArgumentMessage extends GameMessage /*
-														 * implements
-														 * Serializable
-														 */{
+public abstract class ArgumentMessage extends GameMessage implements Serializable{
 	// private String tipo;
 	protected GamePlayer player;
 	protected Long id;
 	private Game game;
 	private Round round;
 	private Date date;
-	private static final long serialVersionUID = 10L;
+	private static final long serialVersionUID = 1238492564293485692L;
 
 	public ArgumentMessage(){
 		player = null;
@@ -32,7 +30,8 @@ public abstract class ArgumentMessage extends GameMessage /*
 	 * 
 	 * public void setTipo(String tipo) { this.tipo = tipo; }
 	 */
-
+	
+	@Override
 	public abstract String toString();
 
 	public void showEffect(ClientGameManager client) {
