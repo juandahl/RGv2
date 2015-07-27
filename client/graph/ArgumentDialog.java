@@ -3,6 +3,8 @@ package edu.isistan.rolegame.client.graph;
 import java.util.Vector;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Label;
@@ -18,6 +20,7 @@ import com.smartgwt.client.widgets.layout.VLayout;
 
 import edu.isistan.rolegame.client.ClientGameManager;
 import edu.isistan.rolegame.shared.GamePlayer;
+import edu.isistan.rolegame.shared.comm.ArgumentMessage;
 import edu.isistan.rolegame.shared.ext.RolegameConstants;
 import edu.isistan.rolegame.shared.ext.RolegameMessages;
 
@@ -68,6 +71,13 @@ public class ArgumentDialog extends Dialog {
 		claim.addMember(text);
 
 		player_box = new ListBox();
+		player_box.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				loadArguments(player_box.getValue(player_box.getSelectedIndex()));				
+			}
+		});
 		setPlayerNames();
 		claim.addMember(player_box);
 		claim.setMargin(7);
@@ -113,6 +123,8 @@ public class ArgumentDialog extends Dialog {
 
 		content.addMember(dataLay);
 
+		loadArguments(player_box.getValue(player_box.getSelectedIndex())); //debe hacerse aca por que sino no hay ningun ListBox disponible
+		   																   //cuando se cargaron los nombres de los jugadores																		
 		addItem(content);
 	}
 
@@ -131,7 +143,6 @@ public class ArgumentDialog extends Dialog {
 		ui.addMember(causeTxt);
 
 		ListBox data_box = new ListBox();
-		data_box.addItem("Aca un texto de prueba que puede extenderse del ancho minimo");
 		data_box.setStyleName("dataBox");
 		data_box.setWidth("250px");
 		ui.addMember(data_box);
@@ -150,6 +161,8 @@ public class ArgumentDialog extends Dialog {
 		ui.addMember(warranty);
 		dataCol.add(warranty);
 
+		loadArguments(player_box.getValue(player_box.getSelectedIndex()));
+		
 		return ui;
 	}
 
@@ -161,24 +174,10 @@ public class ArgumentDialog extends Dialog {
 	
 	private Vector<String> getArgumentTxt(){
 		Vector<String> argument = new Vector<String>();
-		//add claim
-		argument.add(yn_box.getValue(yn_box.getSelectedIndex()));
-		argument.add(player_box.getValue(player_box.getSelectedIndex()));
+
+		argument.add(getClaimText());
+		argument.addAll(getDataTexts());
 		
-		for (int i=0;i<dataCol.size();i++){
-			Widget w = dataCol.elementAt(i);
-			if (w instanceof ListBox){ //add data
-				ListBox lb = (ListBox)w;
-				argument.add(lb.getValue(lb.getSelectedIndex()));
-			}
-			else{ //add warranty
-				if (w instanceof TextArea){
-					TextArea ta = (TextArea)w;
-					argument.add(ta.getValue());
-				}
-			}
-			
-		}
 		return argument;
 	}
 	
@@ -188,4 +187,59 @@ public class ArgumentDialog extends Dialog {
 		return true;
 	}
 
+	private void loadArguments(String player){
+		//Vector<ArgumentMessage> arguments = gameman.loadArguments(player);
+	
+		//if (arguments!=null){
+			for (Widget w: dataCol){
+				if (w instanceof ListBox){
+					((ListBox)w).addItem("Hello");
+				}
+			}
+		//}
+	}
+	
+	private String getClaimText(){
+		String claim = new String(); 
+		claim = yn_box.getValue(yn_box.getSelectedIndex())
+				+ " "
+				+ messages.claimText()
+				+ " "
+				+ player_box.getValue(player_box.getSelectedIndex());
+				
+		System.out.println(claim);
+		return claim;
+	}
+	
+	private Vector<String> getDataTexts(){
+		Vector<String> datas = new Vector<>();
+		
+		String dataW = new String();
+		boolean first_data = true;
+		
+		for (Widget w: dataCol){
+			if (w instanceof ListBox){ //add data
+				ListBox lb = (ListBox)w;
+				if (first_data)
+					dataW = " " + messages.causeText()
+						+ " '" + lb.getValue(lb.getSelectedIndex()) + "'";
+				else
+					dataW = " " + messages.extraCause()
+					+ " '" + lb.getValue(lb.getSelectedIndex()) + "'";
+			}
+			else{ //add warranty
+				if (w instanceof TextArea){
+					TextArea ta = (TextArea)w;
+					if (!ta.getText().isEmpty()){
+						dataW += " " + messages.warrantyText()
+								+ " " + ta.getText();
+					}
+					datas.add(dataW);
+					dataW = new String();
+					first_data= false;
+				}
+			}
+		}
+		return datas;
+	}
 }
