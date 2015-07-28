@@ -1,6 +1,7 @@
 package edu.isistan.rolegame.client.comet;
 
 import java.util.Date;
+import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -120,4 +121,6 @@ public interface GameService extends RemoteService {
 	/**
 	 * Envía un argumento, actualmente de tipo CompArgumentMessage. Es el argumento completo de una persona.
 	 */
+
+	public Vector<ArgumentMessage> loadArguments(Game game, String player) throws ChatException;
 }

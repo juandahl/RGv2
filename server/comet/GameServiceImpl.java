@@ -455,6 +455,31 @@ public class GameServiceImpl extends RemoteServiceServlet implements GameService
 	}
 	
 	/**
+	 * Cargar los argumentos correspondientes a un jugador dado para crear un argumento,
+	 * usando sus previos mensajes
+	 */
+	public Vector<ArgumentMessage> loadArguments(Game game, String p) throws ChatException {
+		// check if there is a HTTP session setup.
+		HttpSession httpSession = getThreadLocalRequest().getSession(false);
+		if (httpSession == null) {
+			throw new ChatException();
+		}
+		
+		// Recupera el messages (internalization)
+		RolegameMessages messages = (RolegameMessages)httpSession.getAttribute("messages-internalization");
+		
+		// get the user name for the HTTP session.
+		GamePlayer player = (GamePlayer) httpSession.getAttribute("game-player");
+		if (player == null) {
+			throw new ChatException(messages.errorNoSesion(""));
+		}
+				
+		Vector<ArgumentMessage> result = dao.getGameDAO().loadArguments(p, game);
+		return result;
+	}
+	
+	
+	/**
 	 *  Envia un mensaje de estado <code>message</code> a un único jugador <code>player</code>.
 	 * @param player Jugador destino.
 	 * @param message Mensaje enviado.

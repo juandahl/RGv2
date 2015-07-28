@@ -1,14 +1,15 @@
 package edu.isistan.rolegame.client.comet;
 
 import java.util.Date;
+import java.util.Vector;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import edu.isistan.rolegame.shared.Game;
 import edu.isistan.rolegame.shared.GamePlayer;
 import edu.isistan.rolegame.shared.comm.ArgumentMessage;
 import edu.isistan.rolegame.shared.comm.PlayerInformMessage;
 import edu.isistan.rolegame.shared.comm.StatusMessage;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface GameServiceAsync {
 	public void getUsername(AsyncCallback<String> callback);
@@ -38,4 +39,6 @@ public interface GameServiceAsync {
 	public void sendInvite(Game game, GamePlayer player, AsyncCallback<Void> asyncCallback);
 	
 	public void send(Game game, ArgumentMessage message, AsyncCallback<Void> callback);
+
+	public void loadArguments(Game game, String player,AsyncCallback<Vector<ArgumentMessage>> asyncCallback);
 }	

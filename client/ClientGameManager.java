@@ -9,6 +9,7 @@ import java.util.Vector;
 import com.google.gwt.core.client.GWT;
 
 import edu.isistan.rolegame.client.comet.Comet;
+import edu.isistan.rolegame.client.graph.ArgumentDialog;
 import edu.isistan.rolegame.client.graph.GameBoard;
 import edu.isistan.rolegame.client.graph.GamesConsole;
 import edu.isistan.rolegame.client.graph.GeneralGameBoard;
@@ -31,6 +32,7 @@ public class ClientGameManager {
 	private Comet comet;
 	private GamePlayer owner;
 	private GamePlayer master;
+	private ArgumentDialog lastArgDialog;
 	
 	private Game currentgame;
 	
@@ -265,6 +267,23 @@ public class ClientGameManager {
 			return false;
 	}
 	
+	public boolean loadArguments(String player){
+		if (currentgame != null){
+			comet.loadArguments(currentgame ,player);
+			return true;
+		}
+		else 
+			return false;
+	}
+	
+	public void loadArguments(Vector<ArgumentMessage>result){
+		Vector<String>arguments = new Vector<String>();
+		for (ArgumentMessage arg : result){
+			arguments.add(arg.toString());
+		}
+		lastArgDialog.loadArguments(arguments);
+	}
+	
 	// EVENTOS DE LA CONEXION CON EL SERVIDOR
 	public void onConnected(int heartbeat) {
 		//board.postMessage(new UserMessage(UserMessage.MASTER_GAME_MESSAGE, "CONECTADO", master));
@@ -339,6 +358,14 @@ public class ClientGameManager {
 		// Indica que el login fue correcto, por lo tanto muestra la consola
 		console.show();
 		//((GameBoard)board).show();
+	}
+	
+	public void setLastArgDialog(ArgumentDialog lastArgDialog) {
+		this.lastArgDialog = lastArgDialog;
+	}
+	
+	public ArgumentDialog getLastArgDialog() {
+		return lastArgDialog;
 	}
 
 

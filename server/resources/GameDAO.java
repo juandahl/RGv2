@@ -1,5 +1,7 @@
 package edu.isistan.rolegame.server.resources;
 
+import java.util.Vector;
+
 import edu.isistan.rolegame.shared.Game;
 import edu.isistan.rolegame.shared.GamePlayer;
 import edu.isistan.rolegame.shared.Round;
@@ -29,4 +31,6 @@ public interface GameDAO {
 	public boolean setFinal(Game game, String result);
 	
 	public boolean addArgument(ArgumentMessage message, Game game, Round round);
+
+	public Vector<ArgumentMessage> loadArguments(String player, Game game);
 }

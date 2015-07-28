@@ -3,6 +3,7 @@ package edu.isistan.rolegame.client.comet;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import net.zschech.gwt.comet.client.CometClient;
 import net.zschech.gwt.comet.client.CometListener;
@@ -19,7 +20,6 @@ import edu.isistan.rolegame.shared.GamePlayer;
 import edu.isistan.rolegame.shared.comm.ArgumentMessage;
 import edu.isistan.rolegame.shared.comm.GameMessage;
 import edu.isistan.rolegame.shared.comm.PlayerInformMessage;
-import edu.isistan.rolegame.shared.comm.SimpleArgumentMessage;
 import edu.isistan.rolegame.shared.comm.StatusMessage;
 
 public class Comet {
@@ -128,20 +128,17 @@ public class Comet {
 	}
 	
 	public void sendArgument (Game game, ArgumentMessage message){
-		SimpleArgumentMessage m = new SimpleArgumentMessage(message.toString(),message.getPlayer());
-		gameService.send(game, m, new AsyncCallback<Void>() {
+		gameService.send(game, message, new AsyncCallback<Void>() {
 			@Override
 			public void onSuccess(Void result){
-				System.out.println("success");
 			}
 			
 			@Override
 			public void onFailure(Throwable caught){
-				System.out.println("failure");
 			}
 		});
 	}
-	
+		
 	public void setStatus(Game game, StatusMessage status) {
 		gameService.setStatus(game, status, new AsyncCallback<Void>() {
 			@Override
@@ -243,6 +240,19 @@ public class Comet {
 			}
 		});
 		
+	}
+
+	public void loadArguments(Game game, String player) {
+		gameService.loadArguments(game, player, new AsyncCallback<Vector<ArgumentMessage>>() {
+			@Override
+			public void onSuccess(Vector <ArgumentMessage> result) {
+				gameman.loadArguments(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+		});
 	}
 
 }

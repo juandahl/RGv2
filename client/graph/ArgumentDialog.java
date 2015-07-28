@@ -34,13 +34,14 @@ public class ArgumentDialog extends Dialog {
 	private Label text; // text for the argument
 	private VLayout dataLay;
 	private Vector<Widget> dataCol; //vector para poder luego mas facil pasar los datos a String
+	private Vector<String> argsPlayerSel; //arguments loaded for the player selected, set by ClientGameManager
 
 	private RolegameMessages messages = GWT.create(RolegameMessages.class);
 	private RolegameConstants constants = GWT.create(RolegameConstants.class);
 
-	public ArgumentDialog(ClientGameManager gameman, Vector<GamePlayer> players) {
-		// set general ui
-		this.gameman = gameman;
+	public ArgumentDialog(ClientGameManager gamemanager, Vector<GamePlayer> players) {
+		// set GENERAL ui
+		this.gameman = gamemanager;
 		this.players = players;
 		setTitle(constants.argumentTitle());
 		setSize("980px", "300px");
@@ -52,30 +53,33 @@ public class ArgumentDialog extends Dialog {
 		HLayout content = new HLayout();
 		content.setWidth("910px");
 		dataCol = new Vector<Widget>();
+		argsPlayerSel = null;
 
-		// set claim section of the ui
+		// set CLAIM section of the ui
 		HLayout claim = new HLayout();
-		claim.setWidth("300px");
+		claim.setWidth("270px");
 
 		yn_box = new ListBox();
 		yn_box.addItem(constants.claimOpt1());
 		yn_box.addItem(constants.claimOpt2());
-		yn_box.setWidth("45px");
+		yn_box.setWidth("42px");
 		claim.addMember(yn_box);
 
 		text = new Label();
 		text.setText(messages.claimText()); // Esto podría cambiar en un futuro
 											// si el texto se hace mas versatl
-		text.setWidth("140px");
+		text.setWidth("120px");
 		text.setStyleName("argLabel");
 		claim.addMember(text);
 
 		player_box = new ListBox();
+		player_box.setWidth("70px");
 		player_box.addChangeHandler(new ChangeHandler() {
 			
 			@Override
 			public void onChange(ChangeEvent event) {
-				loadArguments(player_box.getValue(player_box.getSelectedIndex()));				
+				//llamo a gameman para que pida mediante Comet los argumentos del nuevo jugador seleccionado
+				gameman.loadArguments(player_box.getValue(player_box.getSelectedIndex()));		
 			}
 		});
 		setPlayerNames();
@@ -123,7 +127,7 @@ public class ArgumentDialog extends Dialog {
 
 		content.addMember(dataLay);
 
-		loadArguments(player_box.getValue(player_box.getSelectedIndex())); //debe hacerse aca por que sino no hay ningun ListBox disponible
+		gameman.loadArguments(player_box.getValue(player_box.getSelectedIndex())); //debe hacerse aca por que sino no hay ningun ListBox disponible
 		   																   //cuando se cargaron los nombres de los jugadores																		
 		addItem(content);
 	}
@@ -138,7 +142,7 @@ public class ArgumentDialog extends Dialog {
 			causeTxt.setText(messages.causeText());
 		else
 			causeTxt.setText(messages.extraCause());
-		causeTxt.setWidth("70px");
+		causeTxt.setWidth("85px");
 		causeTxt.setStyleName("argLabel");
 		ui.addMember(causeTxt);
 
@@ -155,7 +159,7 @@ public class ArgumentDialog extends Dialog {
 		ui.addMember(henceTxt);
 
 		TextArea warranty = new TextArea();
-		warranty.setWidth("225px");
+		warranty.setWidth("250px");
 		warranty.setHeight("40px");
 		warranty.setStyleName("warrantyTxtArea");
 		ui.addMember(warranty);
@@ -187,16 +191,19 @@ public class ArgumentDialog extends Dialog {
 		return true;
 	}
 
-	private void loadArguments(String player){
-		//Vector<ArgumentMessage> arguments = gameman.loadArguments(player);
-	
-		//if (arguments!=null){
+	private void loadArguments(String player){	//metodo llamado por el otro loadArguments() de la clase,
+												//cuando se obtuvieron los argumentos pedidos al server.
+		
+		if (argsPlayerSel!=null){
+			
 			for (Widget w: dataCol){
 				if (w instanceof ListBox){
-					((ListBox)w).addItem("Hello");
+					((ListBox) w).clear();
+					for (String arg: argsPlayerSel)
+						((ListBox)w).addItem(arg);
 				}
 			}
-		//}
+		}
 	}
 	
 	private String getClaimText(){
@@ -212,7 +219,7 @@ public class ArgumentDialog extends Dialog {
 	}
 	
 	private Vector<String> getDataTexts(){
-		Vector<String> datas = new Vector<>();
+		Vector<String> datas = new Vector<String>();
 		
 		String dataW = new String();
 		boolean first_data = true;
@@ -241,5 +248,11 @@ public class ArgumentDialog extends Dialog {
 			}
 		}
 		return datas;
+	}
+
+	public void loadArguments(Vector<String> arguments) {	//metodo activado por ClientGameManager al
+															//conseguir onSucess() del llamado a Comet
+		argsPlayerSel = arguments;
+		loadArguments(player_box.getItemText(player_box.getSelectedIndex()));
 	}
 }
