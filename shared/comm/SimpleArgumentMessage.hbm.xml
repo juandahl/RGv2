@@ -4,8 +4,8 @@
 <!-- Generated 13/07/2011 13:42:13 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="edu.isistan.rolegame.shared.comm.SimpleArgumentMessage" table="argumento">
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
+        <id name="id" type="java.lang.Long">
+            <column name="idargumento" />
             <generator class="identity" />
         </id>
         
@@ -13,8 +13,12 @@
         	<column name="descripcion" length="8000" />
         </property>
         
-        <many-to-one name="player" class="edu.isistan.rolegame.shared.GamePlayer" update="false" insert="false" fetch="select">
-            <column name="autor" length="25" not-null="true" />
+        <many-to-one name="game" class="edu.isistan.rolegame.shared.Game">
+            <column name="idGame" />
+        </many-to-one>
+        
+        <many-to-one name="player" class="edu.isistan.rolegame.shared.GamePlayer">
+            <column name="name" length="25"/>
         </many-to-one>
     </class>
 </hibernate-mapping>

@@ -172,7 +172,12 @@ public interface RolegameConstants extends Constants {
 	String addMsg();
 	@DefaultStringValue("plus")
 	String plus();
-	
+	@DefaultStringValue("radioOpt1")
+	String radioOpt1();
+	@DefaultStringValue("radioOpt2")
+	String radioOpt2();
+	@DefaultStringValue("argAlertTitle")
+	String argAlertTitle();
 }
 
 /*public interface RolegameConstants extends Constants {

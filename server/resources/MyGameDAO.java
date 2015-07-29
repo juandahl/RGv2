@@ -245,24 +245,28 @@ public class MyGameDAO implements GameDAO {
 
 			Vector<ArgumentMessage> result = new Vector<ArgumentMessage>();
 			
-			Query query = session.createQuery("FROM UserMessage AS A "
+			/*Query query = session.createQuery("FROM UserMessage AS A "
 											+"LEFT JOIN FETCH A.game "
 											+"LEFT JOIN FETCH A.sender "
+											+"WHERE A.game = :id");*/
+			Query query = session.createQuery("FROM SimpleArgumentMessage AS A "
+											+"LEFT JOIN FETCH A.player "
+											+"LEFT JOIN FETCH A.game "
 											+"WHERE A.game = :id");
 			query.setParameter("id",game);
 			List arguments = query.list();
 			
 			for (Iterator it = arguments.iterator(); it.hasNext();) {
-				/*ArgumentMessage arg = (ArgumentMessage) it.next();
-				if (arg.getPlayer().getName()==player)
-					result.add(arg);*/
+				ArgumentMessage arg = (ArgumentMessage) it.next();
+				if (arg.getPlayer().getName().equals(player))
+					result.add(arg);
 				
 				//TESTING
-				UserMessage um = (UserMessage) it.next();
+				/*UserMessage um = (UserMessage) it.next();
 				Hibernate.initialize(um);
 				if (um.getSender().getName().equals(player)){
 					result.add(new SimpleArgumentMessage(um.getText(),um.getSender()));
-				}
+				}*/
 				//FIN TESTING
 			}
 

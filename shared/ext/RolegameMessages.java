@@ -125,5 +125,7 @@ public interface RolegameMessages extends Messages {
 	String warrantyText();
 	@DefaultMessage("extraCause")
 	String extraCause();
+	@DefaultMessage("argAlertText")
+	String argAlertText();
 
 }
