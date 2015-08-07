@@ -235,7 +235,6 @@ public class ArgumentDialog extends Dialog implements AfterAlertDialogExecution{
 				@Override
 				public void onClick(ClickEvent event) {
 					Button source = (Button)event.getSource();
-					System.out.println(Integer.parseInt(source.getStyleName()));
 					deleteData(Integer.parseInt(source.getStyleName()));
 				}
 			});
@@ -298,6 +297,8 @@ public class ArgumentDialog extends Dialog implements AfterAlertDialogExecution{
 		newWidget.setHeight("20px");
 		dataWar.addMember(newWidget,dataPosition);
 		dataCol.add(position,newWidget);
+		
+		loadArguments();
 	}
 	
 	private void deleteData(int dataNumber){
