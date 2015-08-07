@@ -1,0 +1,115 @@
+package edu.isistan.rolegame.shared.comm;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Vector;
+
+import edu.isistan.rolegame.client.ClientGameManager;
+import edu.isistan.rolegame.shared.Game;
+import edu.isistan.rolegame.shared.GamePlayer;
+import edu.isistan.rolegame.shared.Round;
+
+public class Toulmin extends GameMessage implements Serializable{
+	protected GamePlayer player;
+	protected Long id;
+	private Game game;
+	private Round round;
+	private Date date;
+	private Vector<Data> data;
+	private Vector<Warrant> warrants;
+	private Vector<Backing> backings;
+	private Claim claim;	
+	private Rebuttals rebuttals;
+	private static final long serialVersionUID = 1238492564293485692L;
+
+	public Toulmin(){
+		player = null;
+	}
+	
+	public Toulmin(GamePlayer player) {
+		this.player = player;
+	}
+
+	/*
+	 * public String getNombre() { return tipo; }
+	 * 
+	 * public void setTipo(String tipo) { this.tipo = tipo; }
+	 */
+	
+	
+	public void showEffect(ClientGameManager client) {
+		UserMessage msg = new UserMessage(UserMessage.PLAYER_GAME_MESSAGE,
+				toString(), player);
+		client.getBoard().postMessage(msg);
+	}
+
+	public GamePlayer getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(GamePlayer player) {
+		this.player = player;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Round getRound() {
+		return round;
+	}
+
+	public void setRound(Round round) {
+		this.round = round;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	public void addData(Data data){
+		this.data.addElement(data);
+	}
+	
+	public void addWarrants(Warrant garantia){
+		warrants.addElement(garantia);
+	}
+	
+	public void addBacking(Backing garantia){
+		backings.addElement(garantia);	
+	}
+
+	public Claim getClaim() {
+		return claim;
+	}
+
+	public void setClaim(Claim claim) {
+		this.claim = claim;
+	}
+
+	public Rebuttals getRebuttals() {
+		return rebuttals;
+	}
+
+	public void setRebuttals(Rebuttals rebuttals) {
+		this.rebuttals = rebuttals;
+	}
+}
+	
+	
